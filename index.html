@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title>Document</title>
+</head>
+<body class="text-white flex flex-col justify-start h-[100vh] ">
+
+    <header class="pt-10 pl-4 grid justify-center font-bold">
+        <div class="flex gap-1.5">
+            <img src="./src/images/icons/position_white.png" alt="">
+            <h1 id="city" class=" text-3xl">404</h1>
+        </div>
+
+        <div class="flex justify-center gap-4">
+            <h2 id="climat-condition" class="text-2xl self-center text-center">404</h2>
+            <span id="climat-condition-img" class=""></span>
+        </div>
+
+    </header>
+    
+    <main class=" gap-3">
+        <section class="grid ">
+            <div class="flex w-fit h-fit">
+                <span id="currentDayTemp" class="text-[10rem] w-fit h-fit">16°</span>
+                <!-- <span id="currentDayTempImgSrc"></span> -->
+            </div>
+
+        
+            <div class="flex font-bold gap-4 w-fit text-3xl ml-4 px-8 py-2 border-solid rounded-3xl border-2 border-slate-400 backdrop-blur-lg">
+                <span class="flex">
+                    <img src="./src/images/icons/fleche-haut-blanc.png" id="fleche-haut" alt="">
+                    <span id="currentDayMaxTemp">19°</span>
+                </span>
+
+                <span class="flex">
+                    <img src="./src/images/icons/fleche-bas-blanc.png" id="fleche-bas" alt="">
+                    <span id="currentDayMinTemp">16°</span>
+                </span>
+                
+            </div>
+
+            <span class="grid justify-center">
+                <div class="flex gap-3 w-fit text-[1.140rem] text-center px-3 py-6 mt-8 border-solid rounded-3xl border-2 border-slate-400 backdrop-blur-sm">
+                    <span class="border-r pr-3">
+                        <h3 id="windSpeed" class="backdrop-blur-none">15 km/h</h3>
+                        <h4 class="backdrop-blur-none">Vitesse du vent</h4>
+                    </span>
+
+                    <span class="border-r pr-3">
+                        <h3 id="windDirection">North</h3>
+                        <h4>Direction du vent</h4>
+                    </span>
+                    
+                    <span>
+                        <h3 id="humidity">14</h3>
+                        <h4>Humidité</h4>
+                    </span>
+                </div>
+            </span>
+        </section>        
+    </main>
+
+    <footer class="grid bg-slate-100 text-black mt-auto justify-center  rounded-t-2xl">
+
+            <h1 class="text-[1.6rem] my-1">Prochains Jours</h1>
+
+            <div id="next-days" class="flex justify-center gap-8 text-[1.1rem]">
+
+                <div class="nextDay grid">
+                    <span id="next-day-img-1"></span>
+                    <span id="next-day-name-1"></span>
+                    <span id="next-day-condition-1">Ensoleillé</span>
+                    <span id="next-day-tempMax-1">Temp.Max</span>
+                </div>
+    
+                <div class="nextDay grid">
+                    <span id="next-day-img-2"></span>
+                    <span id="next-day-name-2"></span>
+                    <span id="next-day-condition-2">Ensoleillé</span>
+                    <span id="next-day-tempMax-2">Temp.Max</span>
+                </div>
+    
+                <div class="nextDay grid">
+                    <span id="next-day-img-3"></span>
+                    <span id="next-day-name-3"></span>
+                    <span id="next-day-condition-3">Ensoleillé</span>
+                    <span id="next-day-tempMax-3">Temp.Max</span>
+                </div>
+
+                <div class="nextDay grid">
+                    <span id="next-day-img-4"></span>
+                    <span id="next-day-name-4"></span>
+                    <span id="next-day-condition-4">Ensoleillé</span>
+                    <span id="next-day-tempMax-4">Temp.Max</span>
+                </div>
+            </div>
+
+            <div class="grid mt-5">
+                <h1 class="text-[1.6rem] my-1">Demain</h1>
+
+                <span class="grid justify-center my-3">
+                    <div class="flex gap-8 text-[1.4rem] w-fit mb-3 px-8 py-2 border-solid rounded-3xl border-2 border-slate-300 shadow-2xl">
+                        <span id="tomorrowTempImg"></span>
+                        <div class="grid">
+                            <span>Demain,</span>
+                            <span id="tomorrowCondition">404</span>
+                        </div>
+    
+                        <div class="text-[1.6rem] gap-3 ">
+
+                                <span id="tomorrowMaxTemp">404</span>
+                                <span>|</span>
+                                <span id="tomorrowMinTemp">404</span>
+                        
+                            
+                        </div>
+                    </div>
+                </span>
+
+            </div>
+    </footer>
+
+
+<script src="./index.js"></script>
+</body>
+</html>
