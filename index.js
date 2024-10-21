@@ -25,16 +25,12 @@ let fleche_bas = document.getElementById("fleche-bas");
 let trueCity;
 
 /**
- * TODO: Finir le système de modification du nom de ville en récupérant les accents "é" et "è" pour les changer en "e"
- * TODO: Trouver comment récupérer et utiliser les bons noms de ville du JSON ( ex: Langon au lieu de Langon(33) )
- * TODO: Faire une méthode de rafraîchissement auto de la fonction fetchTownInfo() pour éviter le plantage de l'appli si elle n'obtient pas de réponses des APIs au first-try
- * 
  */
 
 
 //récupération de l'heure pour passer du thème light au thème dark (voir ligne 159)
 let hours = new Date().getHours();
-const isDayTime = hours > 6 && hours < 20;
+const isDayTime = hours > 6 && hours < 19;
 
 
 
