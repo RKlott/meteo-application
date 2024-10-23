@@ -35,55 +35,52 @@ const isDayTime = hours > 6 && hours < 19;
 
 
         // Step 2: Get city name 
-        function getCity(coordinates) { 
-            let xhr = new XMLHttpRequest(); 
-
-            //Latitude et Longitude manuelle pour tester différentes villes
-            let altLat = 45.650000;
-            let altLng = 0.150000;
-
-
-            //vraie récup de la latitude et longitude de l'utilisateur
+        async function getCity() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                   let lat = position.coords.latitude;
-                   let lng = position.coords.longitude;
-
-
-
-                // requete XmlHttp avec l'API LocationIQ pour récupérer le nom de la ville en utilisant la latitude et la longitude
-                xhr.open('GET', "https://us1.locationiq.com/v1/reverse.php?key=pk.36679308395725b059c21bd90a327cbd&lat=" + 
-                    lat + "&lon=" + lng + "&format=json", true); 
-                    xhr.send(); 
-                    xhr.onreadystatechange = processRequest; 
-                    xhr.addEventListener("readystatechange", processRequest, false); 
-            
+                return new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(async function(position) {
+                        let lat = position.coords.latitude;
+                        let lng = position.coords.longitude;
         
-                    function processRequest(e) { 
-                        if (xhr.readyState == 4 && xhr.status == 200) {
+                        try {
+                            const response = await fetch(`https://us1.locationiq.com/v1/reverse.php?key=pk.36679308395725b059c21bd90a327cbd&lat=${lat}&lon=${lng}&format=json`);
                             
-                            let response = JSON.parse(xhr.responseText); 
-                            trueCity = response.address.city;
+                            if (!response.ok) {
+                                throw new Error('Erreur lors de la récupération de la ville');
+                            }
+                            
+                            let data = await response.json();
+                            let trueCity = data.address.city;
                             console.log("trueCity variable value: " + trueCity);
                             
-                            return; 
-                        } 
-                
-                    } 
+                            resolve(trueCity); // return de la ville trouvée
+                        } catch (error) {
+                            console.error("Erreur: ", error);
+                        }
+                    },
+                    (error) => {
+                        console.error("Erreur du service de Géolocalisation : ", error);
+                    });
                 });
-              } else {
+            } else {
                 console.log("Geolocation n'est pas supporté par ce navigateur.");
-              }
+            }
         }
-        getCity();
+        
+        getCity().then(city => {
+            trueCity = city;
+        }).catch(error => {
+            console.error("Erreur : " + error);
+        });
+        
 
 
 
 //fonction setTimeOut pour délayer l'exécution de cette portion de code.
 //la fonction fetchTownInfo() cherchait à récupérer trop rapidement la valeur de la ville, qui n'avait pas le temps d'être récupérée par l'autre api
 //donc j'ai dû délayer la fonction d'affichage pour laisser le temps à la fonction de récupération de la ville de travailler
-setTimeout(() => { 
 
+setTimeout(() => {
     //remplacement de caractères spéciaux en caractères simples pour les noms de villes avec accents
     //l'API de récupération de ville affiche les noms de villes propres (ex: Angoulême)
     //mais l'API météo ne comprends que les noms de ville simples (ex: angouleme)
@@ -104,11 +101,10 @@ setTimeout(() => {
         }
 
     } 
-    
-
+    replaceCharacter();
     //requêtage par la méthode fetch() de l'API météo pour récupérer les informations sur la météo de la ville de l'utilisateur
     async function fetchTownInfo (){
-        replaceCharacter();
+        
         //vérification additionnelle de la valeur de la variable contenant le nom de la ville avant le requêtage
         //pour m'assurer que la valeur n'est pas null
         console.log("Last check city:"+trueCity);
@@ -120,7 +116,7 @@ setTimeout(() => {
                 "Accept": "application/json",
             }
         })
-        if(r.ok === true ){
+        if(r.ok){
             return r.json();
         }
         throw new Error('Connexion au serveur impossible')
@@ -255,5 +251,5 @@ setTimeout(() => {
             }
         }
     )
-}, 800) //nbr de millisecondes de délai de la fonction setTimeOut()
-
+ //nbr de millisecondes de délai de la fonction setTimeOut()
+}, 800)
